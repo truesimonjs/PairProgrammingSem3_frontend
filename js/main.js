@@ -19,5 +19,8 @@ musicRecords: [],
             return ''
         },
         
+    },
+    mounted() {
+        this.getMusicRecords();
     }
 })
