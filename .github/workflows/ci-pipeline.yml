@@ -4,7 +4,7 @@ on:
   push:
     branches: [ "main" ]
   pull_request:
-    branches: [ "main"]
+    branches: [ "main" ]
 
 jobs:
   build-and-test:
@@ -21,3 +21,11 @@ jobs:
 
     - name: Kør frontend test
       run: node --check js/main.js
+
+    - name: Deploy to Azure App Service
+      if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+      uses: azure/webapps-deploy@v3
+      with:
+        app-name: PairProgrammingRessourceGroupFrontend
+        publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+        package: .
