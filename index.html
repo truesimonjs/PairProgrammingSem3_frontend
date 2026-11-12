@@ -13,13 +13,23 @@
   </head>
   <body>
     <div id="app">
-      <div class="nav-bar"></div>
+      <nav class="navbar navbar-dark bg-dark">
+        <span class="navbar-brand mb-0 h1">Music Records</span>
+      </nav>
 
-      <ul>
-        <li v-for="record in musicRecords" :key="record.id">
-          {{ record.title }} by {{ record.artist }}
-        </li>
-      </ul>      
+      <main class="container py-4">
+        <h2 class="mb-3">Your collection</h2>
+        <ul class="list-group">
+          <li
+            v-for="record in musicRecords"
+            :key="record.id"
+            class="list-group-item"
+          >
+            <strong>{{ record.title }}</strong>
+            <span class="text-muted">by {{ record.artist }}</span>
+          </li>
+        </ul>
+      </main>
     </div>
 
     <!-- Import App -->
