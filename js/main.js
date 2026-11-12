@@ -7,7 +7,7 @@ musicRecords: [],
     methods: {
         async getMusicRecords() {
             try {
-                const data = await axios.get('https://localhost:7198/api/MusicRecords');
+                const data = await axios.get('https://pairprogramming-f6bvctbratcfexdp.spaincentral-01.azurewebsites.net/api/musicRecords');
                 this.musicRecords = data.data;
             } catch (error) {
                 console.error('Error fetching music records:', error);
