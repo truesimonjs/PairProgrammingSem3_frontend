@@ -19,6 +19,9 @@
 
       <main class="container py-4">
         <h2 class="mb-3">Your collection</h2>
+        <input type="text" v-model="titleFilter" placeholder="Title" class="form-control mb-2" />
+        <input type="text" v-model="artistFilter" placeholder="Artist" class="form-control mb-2" />
+        <button @click="filterRecords" class="btn btn-primary mb-3">Filter</button>
         <ul class="list-group">
           <li
             v-for="record in musicRecords"
@@ -29,7 +32,6 @@
             <span class="text-muted">by {{ record.artist }}</span>
           </li>
         </ul>
-        published 
       </main>
     </div>
 
