@@ -17,6 +17,11 @@ app.component("create-record-form", {
         const response = await axios.post(
           `${API_CONFIG.baseUrl}/api/musicRecords`,
           this.record,
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          },
         );
         this.$emit("record-created", response.data);
         this.record = {
