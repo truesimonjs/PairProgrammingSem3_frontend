@@ -1,6 +1,6 @@
 var API_CONFIG = {
   baseUrl:
-    "https://localhost:7198",
+    "https://pairprogramming-recordsapi-amh6d9fkcpcmhxaq.norwayeast-01.azurewebsites.net",
 };
 
 var app = Vue.createApp({
