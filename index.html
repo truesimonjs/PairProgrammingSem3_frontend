@@ -13,93 +13,21 @@
   </head>
   <body>
     <div id="app">
-      <nav class="navbar navbar-dark bg-dark">
-        <span class="navbar-brand mb-0 h1">Music Records</span>
-        <div v-if="!checkToken()" class="ml-auto">
-          <div v-if="loginError" class="small text-warning text-right mb-1">
-            {{ loginError }}
-          </div>
-          <form @submit.prevent="login" class="form-inline">
-            <input
-              v-model="username"
-              class="form-control form-control-sm mr-sm-2 mb-2 mb-sm-0"
-              placeholder="Username"
-              aria-label="Username"
-              autocomplete="username"
-            />
-            <input
-              v-model="password"
-              class="form-control form-control-sm mr-sm-2 mb-2 mb-sm-0"
-              type="password"
-              placeholder="Password"
-              aria-label="Password"
-              autocomplete="current-password"
-            />
-            <button type="submit" class="btn btn-primary btn-sm">Login</button>
-          </form>
-        </div>
-        <div v-else>
-          <span class="text-light mr-2">{{ username }}</span>
-          <button @click="logout" class="btn btn-outline-light">Logout</button>
-        </div>
-      </nav>
-
-      <main class="container py-4">
-        <h2 class="mb-3">Your collection</h2>
-        <div v-if="getAllError" class="alert alert-danger" role="alert">
-          {{ getAllError }}
-        </div>
-        <div v-if="musicRecords.length === 0 && !getAllError" class="alert alert-info" role="alert">
-          No music records found. 
-        </div>
-        <input type="text" v-model="titleFilter" placeholder="Title" class="form-control mb-2" />
-        <input type="text" v-model="artistFilter" placeholder="Artist" class="form-control mb-2" />
-        <button @click="filterRecords" class="btn btn-primary mb-3">Filter</button>
-        <ul class="list-group">
-          <li
-            v-for="record in musicRecords"
-            :key="record.id"
-            class="list-group-item"
-          >
-            <strong>{{ record.title }}</strong>
-            <span class="text-muted">by {{ record.artist }}</span>
-            <button class="btn btn-outline-danger btn-sm float-right" @click="deleteMusicRecord(record.id)">Delete</button>
-          </li>
-        </ul>
-        published 
-        <form class="card card-body mt-4" @submit.prevent="addMusicRecord()">
-          <h3 class="h5 mb-3">Add a record</h3>
-          <div class="form-row">
-            <div class="form-group col-md-6">
-              <label for="record-title">Title</label>
-              <input id="record-title" class="form-control" required type="text" v-model="title" placeholder="Enter title" />
-            </div>
-            <div class="form-group col-md-6">
-              <label for="record-artist">Artist</label>
-              <input id="record-artist" class="form-control" required type="text" v-model="artist" placeholder="Enter artist" />
-            </div>
-            <div class="form-group col-md-6">
-              <label for="record-duration">Duration</label>
-              <input id="record-duration" class="form-control" required type="number" v-model="duration" placeholder="Duration in minutes" />
-            </div>
-            <div class="form-group col-md-6">
-              <label for="record-publication-year">Publication year</label>
-              <input id="record-publication-year" class="form-control" required type="number" v-model="publicationYear" placeholder="Year released" />
-            </div>
-          </div>
-          <div>
-            <button type="submit" class="btn btn-primary">Add Record</button>
-          </div>
-        </form>
-      </main>
+      <app-navbar
+        :authenticated="authenticated"
+        @authenticated-change="authenticated = $event"
+      ></app-navbar>
+      <record-list :authenticated="authenticated"></record-list>
     </div>
 
-    <!-- Import App -->
     <script src="./js/main.js"></script>
-
-    <!-- Mount App -->
+    <script src="./js/components/delete.js"></script>
+    <script src="./js/components/getall.js"></script>
+    <script src="./js/components/filter.js"></script>
+    <script src="./js/components/navbar.js"></script>
+    <script src="./js/components/create.js"></script>
     <script>
-      const mountedApp = app.mount('#app')
+      app.mount("#app");
     </script>
   </body>
 </html>
