@@ -2,6 +2,10 @@ const app = Vue.createApp({
     data() {
         return {
 musicRecords: [],
+title: '',
+artist: '',
+duration: 0,
+publicationYear: 0,
 titleFilter: '',
 artistFilter: ''
         }
@@ -15,9 +19,35 @@ artistFilter: ''
                 console.error('Error fetching music records:', error);
             }
         },
+        async addMusicRecord() {
+            try {
+                const record = {
+                    title: this.title,
+                    artist: this.artist,
+                    duration: this.duration,
+                    publicationYear: this.publicationYear
+                };
+                const response = await axios.post('pairprogramming-recordsapi-amh6d9fkcpcmhxaq.norwayeast-01.azurewebsites.net', record);
+                this.musicRecords.push(response.data);
+                this.title = '';
+                this.artist = '';
+                this.duration = 0;
+                this.publicationYear = 0;
+            } catch (error) {
+                console.error('Error adding music record:', error);
+            }
+        },
+        async deleteMusicRecord(id) {
+          try {
+            const response = await axios.delete(`pairprogramming-recordsapi-amh6d9fkcpcmhxaq.norwayeast-01.azurewebsites.net/${id}`)
+            this.musicRecords = this.musicRecords.filter(record => record.id !== response.data.id);
+          } catch (error) {
+            console.error('Error deleting music record:', error);
+          }
+        },
         async filterRecords() {
             try {
-                const data = await axios.get('https://localhost:7198/api/musicRecords', {
+                const data = await axios.get('pairprogramming-recordsapi-amh6d9fkcpcmhxaq.norwayeast-01.azurewebsites.net/api/musicRecords', {
                     params: {
                         title: this.titleFilter,
                         artist: this.artistFilter
