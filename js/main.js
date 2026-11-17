@@ -12,7 +12,7 @@ const app = Vue.createApp({
     async getMusicRecords() {
       try {
         const data = await axios.get(
-          "https://localhost:7198/api/musicRecords",
+          "https://pairprogramming-f6bvctbratcfexdp.spaincentral-01.azurewebsites.net/api/musicRecords",
         );
         this.musicRecords = data.data;
       } catch (error) {
