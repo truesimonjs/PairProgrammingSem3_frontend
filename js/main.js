@@ -5,7 +5,7 @@ musicRecords: [],
 title: '',
 artist: '',
 duration: 0,
-publicationYear: 0
+publicationYear: 0,
 titleFilter: '',
 artistFilter: ''
         }
@@ -27,7 +27,7 @@ artistFilter: ''
                     duration: this.duration,
                     publicationYear: this.publicationYear
                 };
-                const response = await axios.post('https://pairprogramming-f6bvctbratcfexdp.spaincentral-01.azurewebsites.net/api/musicRecords', record);
+                const response = await axios.post('pairprogramming-recordsapi-amh6d9fkcpcmhxaq.norwayeast-01.azurewebsites.net', record);
                 this.musicRecords.push(response.data);
                 this.title = '';
                 this.artist = '';
@@ -39,14 +39,15 @@ artistFilter: ''
         },
         async deleteMusicRecord(id) {
           try {
-            const response = await axios.delete(`https://pairprogramming-f6bvctbratcfexdp.spaincentral-01.azurewebsites.net/api/musicRecords/${id}`)
+            const response = await axios.delete(`pairprogramming-recordsapi-amh6d9fkcpcmhxaq.norwayeast-01.azurewebsites.net/${id}`)
             this.musicRecords = this.musicRecords.filter(record => record.id !== response.data.id);
           } catch (error) {
             console.error('Error deleting music record:', error);
           }
+        },
         async filterRecords() {
             try {
-                const data = await axios.get('https://localhost:7198/api/musicRecords', {
+                const data = await axios.get('pairprogramming-recordsapi-amh6d9fkcpcmhxaq.norwayeast-01.azurewebsites.net/api/musicRecords', {
                     params: {
                         title: this.titleFilter,
                         artist: this.artistFilter
