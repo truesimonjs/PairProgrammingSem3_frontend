@@ -4,7 +4,7 @@ app.component("create-record-form", {
       record: {
         title: "",
         artist: "",
-        duration: 0,
+        durationInSeconds: 0,
         publicationYear: 0,
       },
       createError: "",
@@ -16,7 +16,12 @@ app.component("create-record-form", {
       try {
         const response = await axios.post(
           `${API_CONFIG.baseUrl}/api/musicRecords`,
-          this.record,
+          {
+            title: this.record.title,
+            artist: this.record.artist,
+            durationInSeconds: this.record.durationInSeconds,
+            publicationYear: this.record.publicationYear,
+          },
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -27,14 +32,15 @@ app.component("create-record-form", {
         this.record = {
           title: "",
           artist: "",
-          duration: 0,
+          durationInSeconds: 0,
           publicationYear: 0,
         };
       } catch (error) {
-        console.error("Error adding music record:", error);
-        this.createError =
-          error.response?.data?.message ||
-          "Failed to add music record. Please try again.";
+          console.error("Error adding music record:", error);
+          this.createError =
+              `Status: ${error.response?.status ?? "No response"} - ` +
+              (error.response?.data?.message ||
+              error.message);
       }
     },
   },
@@ -52,8 +58,8 @@ app.component("create-record-form", {
           <input id="record-artist" class="form-control" required type="text" v-model="record.artist" placeholder="Enter artist" />
         </div>
         <div class="form-group col-md-6">
-          <label for="record-duration">Duration</label>
-          <input id="record-duration" class="form-control" required type="number" v-model.number="record.duration" placeholder="Duration in minutes" />
+          <label for="record-duration">Duration (seconds)</label>
+          <input id="record-duration" class="form-control" required type="number" v-model.number="record.durationInSeconds" placeholder="Duration in seconds" />
         </div>
         <div class="form-group col-md-6">
           <label for="record-publication-year">Publication year</label>

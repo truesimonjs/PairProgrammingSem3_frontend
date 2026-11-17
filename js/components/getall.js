@@ -88,8 +88,8 @@ app.component("record-list", {
                 <span v-if="record.publicationYear" class="badge badge-light mr-2">
                   {{ record.publicationYear }}
                 </span>
-                <span v-if="record.duration" class="badge badge-light">
-                  {{ record.duration }} min
+                <span v-if="record.durationInSeconds != null" class="badge badge-light">
+                  {{ record.durationInSeconds }} sec
                 </span>
               </div>
             </div>
