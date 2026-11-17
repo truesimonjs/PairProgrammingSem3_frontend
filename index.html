@@ -13,32 +13,21 @@
   </head>
   <body>
     <div id="app">
-      <nav class="navbar navbar-dark bg-dark">
-        <span class="navbar-brand mb-0 h1">Music Records</span>
-      </nav>
-
-      <main class="container py-4">
-        <h2 class="mb-3">Your collection</h2>
-        <ul class="list-group">
-          <li
-            v-for="record in musicRecords"
-            :key="record.id"
-            class="list-group-item"
-          >
-            <strong>{{ record.title }}</strong>
-            <span class="text-muted">by {{ record.artist }}</span>
-          </li>
-        </ul>
-        published 
-      </main>
+      <app-navbar
+        :authenticated="authenticated"
+        @authenticated-change="authenticated = $event"
+      ></app-navbar>
+      <record-list :authenticated="authenticated"></record-list>
     </div>
 
-    <!-- Import App -->
     <script src="./js/main.js"></script>
-
-    <!-- Mount App -->
+    <script src="./js/components/delete.js"></script>
+    <script src="./js/components/getall.js"></script>
+    <script src="./js/components/filter.js"></script>
+    <script src="./js/components/navbar.js"></script>
+    <script src="./js/components/create.js"></script>
     <script>
-      const mountedApp = app.mount('#app')
+      app.mount("#app");
     </script>
   </body>
 </html>
