@@ -16,6 +16,11 @@ app.component("delete-record-button", {
       try {
         await axios.delete(
           `${API_CONFIG.baseUrl}/api/musicRecords/${this.recordId}`,
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          },
         );
         this.$emit("deleted", this.recordId);
       } catch (error) {
