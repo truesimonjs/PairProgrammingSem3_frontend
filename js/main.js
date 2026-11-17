@@ -6,12 +6,14 @@ title: '',
 artist: '',
 duration: 0,
 publicationYear: 0
+titleFilter: '',
+artistFilter: ''
         }
     },
     methods: {
         async getMusicRecords() {
             try {
-                const data = await axios.get('https://pairprogramming-f6bvctbratcfexdp.spaincentral-01.azurewebsites.net/api/musicRecords');
+                const data = await axios.get('pairprogramming-recordsapi-amh6d9fkcpcmhxaq.norwayeast-01.azurewebsites.net');
                 this.musicRecords = data.data;
             } catch (error) {
                 console.error('Error fetching music records:', error);
@@ -42,6 +44,18 @@ publicationYear: 0
           } catch (error) {
             console.error('Error deleting music record:', error);
           }
+        async filterRecords() {
+            try {
+                const data = await axios.get('https://localhost:7198/api/musicRecords', {
+                    params: {
+                        title: this.titleFilter,
+                        artist: this.artistFilter
+                    }
+                });
+                this.musicRecords = data.data;
+            } catch (error) {
+                console.error('Error filtering music records:', error);
+            }
         }
     },  
     computed: {
