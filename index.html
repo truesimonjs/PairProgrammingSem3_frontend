@@ -15,10 +15,43 @@
     <div id="app">
       <nav class="navbar navbar-dark bg-dark">
         <span class="navbar-brand mb-0 h1">Music Records</span>
+        <div v-if="!checkToken()" class="ml-auto">
+          <div v-if="loginError" class="small text-warning text-right mb-1">
+            {{ loginError }}
+          </div>
+          <form @submit.prevent="login" class="form-inline">
+            <input
+              v-model="username"
+              class="form-control form-control-sm mr-sm-2 mb-2 mb-sm-0"
+              placeholder="Username"
+              aria-label="Username"
+              autocomplete="username"
+            />
+            <input
+              v-model="password"
+              class="form-control form-control-sm mr-sm-2 mb-2 mb-sm-0"
+              type="password"
+              placeholder="Password"
+              aria-label="Password"
+              autocomplete="current-password"
+            />
+            <button type="submit" class="btn btn-primary btn-sm">Login</button>
+          </form>
+        </div>
+        <div v-else>
+          <span class="text-light mr-2">{{ username }}</span>
+          <button @click="logout" class="btn btn-outline-light">Logout</button>
+        </div>
       </nav>
 
       <main class="container py-4">
         <h2 class="mb-3">Your collection</h2>
+        <div v-if="getAllError" class="alert alert-danger" role="alert">
+          {{ getAllError }}
+        </div>
+        <div v-if="musicRecords.length === 0 && !getAllError" class="alert alert-info" role="alert">
+          No music records found. 
+        </div>
         <input type="text" v-model="titleFilter" placeholder="Title" class="form-control mb-2" />
         <input type="text" v-model="artistFilter" placeholder="Artist" class="form-control mb-2" />
         <button @click="filterRecords" class="btn btn-primary mb-3">Filter</button>
